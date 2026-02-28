@@ -1,0 +1,2696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Export Document Generator</title>
+    <style>
+        :root {
+  --color-white: rgba(255, 255, 255, 1);
+  --color-black: rgba(0, 0, 0, 1);
+  --color-cream-50: rgba(252, 252, 249, 1);
+  --color-cream-100: rgba(255, 255, 253, 1);
+  --color-gray-200: rgba(245, 245, 245, 1);
+  --color-gray-300: rgba(167, 169, 169, 1);
+  --color-gray-400: rgba(119, 124, 124, 1);
+  --color-slate-500: rgba(98, 108, 113, 1);
+  --color-brown-600: rgba(94, 82, 64, 1);
+  --color-charcoal-700: rgba(31, 33, 33, 1);
+  --color-charcoal-800: rgba(38, 40, 40, 1);
+  --color-slate-900: rgba(19, 52, 59, 1);
+  --color-teal-300: rgba(50, 184, 198, 1);
+  --color-teal-400: rgba(45, 166, 178, 1);
+  --color-teal-500: rgba(33, 128, 141, 1);
+  --color-teal-600: rgba(29, 116, 128, 1);
+  --color-teal-700: rgba(26, 104, 115, 1);
+  --color-teal-800: rgba(41, 150, 161, 1);
+  --color-red-400: rgba(255, 84, 89, 1);
+  --color-red-500: rgba(192, 21, 47, 1);
+  --color-orange-400: rgba(230, 129, 97, 1);
+  --color-orange-500: rgba(168, 75, 47, 1);
+  --color-brown-600-rgb: 94, 82, 64;
+  --color-teal-500-rgb: 33, 128, 141;
+  --color-slate-900-rgb: 19, 52, 59;
+  --color-slate-500-rgb: 98, 108, 113;
+  --color-red-500-rgb: 192, 21, 47;
+  --color-red-400-rgb: 255, 84, 89;
+  --color-orange-500-rgb: 168, 75, 47;
+  --color-orange-400-rgb: 230, 129, 97;
+  --color-bg-1: rgba(59, 130, 246, 0.08);
+  --color-bg-2: rgba(245, 158, 11, 0.08);
+  --color-bg-3: rgba(34, 197, 94, 0.08);
+  --color-bg-4: rgba(239, 68, 68, 0.08);
+  --color-bg-5: rgba(147, 51, 234, 0.08);
+  --color-bg-6: rgba(249, 115, 22, 0.08);
+  --color-bg-7: rgba(236, 72, 153, 0.08);
+  --color-bg-8: rgba(6, 182, 212, 0.08);
+  --color-background: var(--color-cream-50);
+  --color-surface: var(--color-cream-100);
+  --color-text: var(--color-slate-900);
+  --color-text-secondary: var(--color-slate-500);
+  --color-primary: var(--color-teal-500);
+  --color-primary-hover: var(--color-teal-600);
+  --color-primary-active: var(--color-teal-700);
+  --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+  --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-btn-primary-text: var(--color-cream-50);
+  --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-error: var(--color-red-500);
+  --color-success: var(--color-teal-500);
+  --color-warning: var(--color-orange-500);
+  --color-info: var(--color-slate-500);
+  --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+  --color-select-caret: rgba(var(--color-slate-900-rgb), 0.8);
+  --focus-ring: 0 0 0 3px var(--color-focus-ring);
+  --focus-outline: 2px solid var(--color-primary);
+  --status-bg-opacity: 0.15;
+  --status-border-opacity: 0.25;
+  --select-caret-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23134252' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  --select-caret-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23f5f5f5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  --color-success-rgb: 33, 128, 141;
+  --color-error-rgb: 192, 21, 47;
+  --color-warning-rgb: 168, 75, 47;
+  --color-info-rgb: 98, 108, 113;
+  --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-base: 14px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --radius-base: 8px;
+  --radius-md: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-gray-400-rgb: 119, 124, 124;
+    --color-teal-300-rgb: 50, 184, 198;
+    --color-gray-300-rgb: 167, 169, 169;
+    --color-gray-200-rgb: 245, 245, 245;
+    --color-bg-1: rgba(29, 78, 216, 0.15);
+    --color-bg-2: rgba(180, 83, 9, 0.15);
+    --color-bg-3: rgba(21, 128, 61, 0.15);
+    --color-bg-4: rgba(185, 28, 28, 0.15);
+    --color-bg-5: rgba(107, 33, 168, 0.15);
+    --color-bg-6: rgba(194, 65, 12, 0.15);
+    --color-bg-7: rgba(190, 24, 93, 0.15);
+    --color-bg-8: rgba(8, 145, 178, 0.15);
+    --color-background: var(--color-charcoal-700);
+    --color-surface: var(--color-charcoal-800);
+    --color-text: var(--color-gray-200);
+    --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+    --color-primary: var(--color-teal-300);
+    --color-primary-hover: var(--color-teal-400);
+    --color-primary-active: var(--color-teal-800);
+    --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
+    --color-secondary-hover: rgba(var(--color-gray-400-rgb), 0.25);
+    --color-secondary-active: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-error: var(--color-red-400);
+    --color-success: var(--color-teal-300);
+    --color-warning: var(--color-orange-400);
+    --color-info: var(--color-gray-300);
+    --color-focus-ring: rgba(var(--color-teal-300-rgb), 0.4);
+    --color-btn-primary-text: var(--color-slate-900);
+    --color-card-border: rgba(var(--color-gray-400-rgb), 0.2);
+    --color-card-border-inner: rgba(var(--color-gray-400-rgb), 0.15);
+    --color-select-caret: rgba(var(--color-gray-200-rgb), 0.8);
+    --color-success-rgb: var(--color-teal-300-rgb);
+    --color-error-rgb: var(--color-red-400-rgb);
+    --color-warning-rgb: var(--color-orange-400-rgb);
+    --color-info-rgb: var(--color-gray-300-rgb);
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family-base);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  line-height: 1.5;
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--space-20);
+}
+
+header {
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-16) var(--space-20);
+  margin-bottom: var(--space-24);
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+}
+
+.subtitle {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.tabs {
+  display: flex;
+  gap: var(--space-4);
+  margin-bottom: var(--space-24);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.tab {
+  padding: var(--space-12) var(--space-20);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.tab.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+.tab:hover {
+  color: var(--color-primary-hover);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.form-section {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-20);
+  margin-bottom: var(--space-20);
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: var(--space-16);
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-16);
+  margin-bottom: var(--space-16);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.form-label {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.form-control {
+  padding: var(--space-8) var(--space-12);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  background: var(--color-background);
+  color: var(--color-text);
+  font-size: var(--font-size-base);
+  transition: border-color 0.2s;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: var(--focus-ring);
+}
+
+select.form-control {
+  appearance: none;
+  background-image: var(--select-caret-light);
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 40px;
+}
+
+@media (prefers-color-scheme: dark) {
+  select.form-control {
+    background-image: var(--select-caret-dark);
+  }
+}
+
+textarea.form-control {
+  min-height: 80px;
+  resize: vertical;
+  font-family: var(--font-family-base);
+}
+
+.btn {
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-btn-primary-text);
+}
+
+.btn-primary:hover {
+  background: var(--color-primary-hover);
+}
+
+.btn-secondary {
+  background: var(--color-secondary);
+  color: var(--color-text);
+}
+
+.btn-secondary:hover {
+  background: var(--color-secondary-hover);
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: var(--font-size-sm);
+}
+
+.items-section {
+  margin-bottom: var(--space-20);
+}
+
+.items-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--space-16);
+  background: var(--color-background);
+  border-radius: var(--radius-base);
+  overflow: hidden;
+}
+
+.items-table th,
+.items-table td {
+  padding: var(--space-12);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.items-table th {
+  background: var(--color-secondary);
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+}
+
+.items-table td input {
+  width: 100%;
+  padding: var(--space-4) var(--space-8);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.items-table td input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.btn-actions {
+  display: flex;
+  gap: var(--space-8);
+  justify-content: flex-start;
+  margin-top: var(--space-16);
+}
+
+.generate-section {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-20);
+}
+
+.document-selector {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-12);
+  margin-bottom: var(--space-20);
+}
+
+.doc-checkbox {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-12);
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.doc-checkbox:hover {
+  border-color: var(--color-primary);
+  background: var(--color-secondary);
+}
+
+.doc-checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--color-primary);
+}
+
+.doc-checkbox label {
+  cursor: pointer;
+  font-size: var(--font-size-base);
+  flex: 1;
+}
+
+.preview-area {
+  margin-top: var(--space-20);
+  display: none;
+}
+
+.preview-area.active {
+  display: block;
+}
+
+.document-preview {
+  background: white;
+  color: black;
+  padding: 40px;
+  border-radius: var(--radius-base);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 0 auto var(--space-20);
+  font-family: 'Courier New', monospace;
+}
+
+.doc-header {
+  border-bottom: 2px solid #000;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.doc-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.doc-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.doc-label {
+  font-weight: bold;
+  min-width: 150px;
+}
+
+.doc-section {
+  margin: 20px 0;
+  padding: 15px;
+  background: #f5f5f5;
+}
+
+.doc-section-title {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 10px;
+  text-decoration: underline;
+}
+
+.items-preview-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.items-preview-table th,
+.items-preview-table td {
+  border: 1px solid #000;
+  padding: 8px;
+  text-align: left;
+}
+
+.items-preview-table th {
+  background: #e0e0e0;
+  font-weight: bold;
+}
+
+.doc-footer {
+  margin-top: 30px;
+  border-top: 2px solid #000;
+  padding-top: 20px;
+}
+
+.signature-line {
+  margin-top: 40px;
+  border-top: 1px solid #000;
+  width: 200px;
+  text-align: center;
+  padding-top: 8px;
+}
+
+.print-buttons {
+  display: flex;
+  gap: var(--space-8);
+  justify-content: center;
+  margin-bottom: var(--space-20);
+  flex-wrap: wrap;
+}
+
+.export-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: var(--color-surface);
+  min-width: 180px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  z-index: 1;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+}
+
+.dropdown-content button {
+  width: 100%;
+  padding: var(--space-12) var(--space-16);
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text);
+  font-size: var(--font-size-base);
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  transition: background 0.2s;
+}
+
+.dropdown-content button:hover {
+  background: var(--color-secondary);
+}
+
+.export-dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.signature-controls {
+  display: flex;
+  gap: var(--space-12);
+  align-items: center;
+  padding: var(--space-12);
+  background: var(--color-secondary);
+  border-radius: var(--radius-base);
+  margin-bottom: var(--space-16);
+}
+
+.signature-pad-container {
+  display: none;
+  background: white;
+  padding: var(--space-16);
+  border-radius: var(--radius-base);
+  margin-bottom: var(--space-16);
+  border: 1px solid var(--color-border);
+}
+
+.signature-pad-container.active {
+  display: block;
+}
+
+.signature-canvas {
+  border: 2px dashed var(--color-border);
+  background: white;
+  cursor: crosshair;
+  display: block;
+  margin: 0 auto;
+}
+
+.signature-buttons {
+  display: flex;
+  gap: var(--space-8);
+  justify-content: center;
+  margin-top: var(--space-12);
+}
+
+.resize-controls {
+  background: var(--color-secondary);
+  padding: var(--space-12);
+  border-radius: var(--radius-base);
+  margin-bottom: var(--space-16);
+}
+
+.resize-sliders {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-16);
+  margin-top: var(--space-12);
+}
+
+.slider-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.slider-group label {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.slider-group input[type="range"] {
+  width: 100%;
+  accent-color: var(--color-primary);
+}
+
+.slider-value {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.applied-signature {
+  max-width: 200px;
+  height: auto;
+  border: 1px solid #ccc;
+  padding: 4px;
+  background: white;
+}
+
+.print-buttons {
+  display: flex;
+  gap: var(--space-8);
+  justify-content: center;
+  margin-bottom: var(--space-20);
+  flex-wrap: wrap;
+}
+
+.alert {
+  padding: var(--space-12) var(--space-16);
+  border-radius: var(--radius-base);
+  margin-bottom: var(--space-16);
+  font-size: var(--font-size-sm);
+}
+
+.alert-info {
+  background: rgba(var(--color-info-rgb), 0.15);
+  border: 1px solid rgba(var(--color-info-rgb), 0.25);
+  color: var(--color-info);
+}
+
+kbd {
+  background: var(--color-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-family: var(--font-family-base);
+  font-size: 11px;
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  
+  .document-preview,
+  .document-preview * {
+    visibility: visible;
+  }
+  
+  .document-preview {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    box-shadow: none;
+  }
+  
+  .print-buttons {
+    display: none;
+  }
+}
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Export Document Generator</h1>
+        <p class="subtitle">Create professional export documents from a single dataset • Eliminate data re-entry</p>
+        <div class="alert alert-info" style="margin-top: 12px;">
+            💡 <strong>Convert to Windows App:</strong> Press <kbd>Ctrl+S</kbd> to save this page as "ExportDocGen.html", then open it in any browser. For a desktop app experience, open in Chrome/Edge and click the menu (⋮) → "Install Export Document Generator" or use <a href="https://nwjs.io" target="_blank" style="color: var(--color-primary); text-decoration: underline;">NW.js</a> / <a href="https://www.electronjs.org" target="_blank" style="color: var(--color-primary); text-decoration: underline;">Electron</a> to package as a standalone .exe application.
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('master-data')">Master Data</button>
+            <button class="tab" onclick="switchTab('generate')">Generate Documents</button>
+        </div>
+
+        <div id="master-data" class="tab-content active">
+            <div class="form-section">
+                <h2 class="section-title">📤 Exporter / Shipper Information</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Company Name *</label>
+                        <input type="text" id="exporterName" class="form-control" placeholder="ABC Export Ltd.">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Address *</label>
+                        <input type="text" id="exporterAddress" class="form-control" placeholder="123 Business Street">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">City & Country *</label>
+                        <input type="text" id="exporterCity" class="form-control" placeholder="Mumbai, India">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Contact Number</label>
+                        <input type="text" id="exporterContact" class="form-control" placeholder="+91 1234567890">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" id="exporterEmail" class="form-control" placeholder="export@company.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">IEC Code / License No.</label>
+                        <input type="text" id="exporterIEC" class="form-control" placeholder="1234567890">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">GST / Tax Registration</label>
+                        <input type="text" id="exporterGST" class="form-control" placeholder="22AAAAA0000A1Z5">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2 class="section-title">📥 Consignee / Buyer Information</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Company Name *</label>
+                        <input type="text" id="consigneeName" class="form-control" placeholder="XYZ Imports Inc.">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Address *</label>
+                        <input type="text" id="consigneeAddress" class="form-control" placeholder="456 Import Avenue">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">City & Country *</label>
+                        <input type="text" id="consigneeCity" class="form-control" placeholder="New York, USA">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Contact Number</label>
+                        <input type="text" id="consigneeContact" class="form-control" placeholder="+1 234-567-8900">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" id="consigneeEmail" class="form-control" placeholder="buyer@imports.com">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2 class="section-title">🚢 Shipment Details</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Invoice Number *</label>
+                        <input type="text" id="invoiceNumber" class="form-control" placeholder="INV-2026-001">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Invoice Date *</label>
+                        <input type="date" id="invoiceDate" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">PO / Contract Number</label>
+                        <input type="text" id="poNumber" class="form-control" placeholder="PO-12345">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Port of Loading</label>
+                        <input type="text" id="portLoading" class="form-control" placeholder="Mumbai Port">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Port of Discharge</label>
+                        <input type="text" id="portDischarge" class="form-control" placeholder="New York Port">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Country of Origin</label>
+                        <input type="text" id="countryOrigin" class="form-control" placeholder="India">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Incoterms</label>
+                        <select id="incoterms" class="form-control">
+                            <option value="">Select Incoterm</option>
+                            <option value="FOB">FOB - Free On Board</option>
+                            <option value="CIF">CIF - Cost, Insurance & Freight</option>
+                            <option value="CFR">CFR - Cost and Freight</option>
+                            <option value="EXW">EXW - Ex Works</option>
+                            <option value="FCA">FCA - Free Carrier</option>
+                            <option value="DDP">DDP - Delivered Duty Paid</option>
+                            <option value="DAP">DAP - Delivered At Place</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Payment Terms</label>
+                        <select id="paymentTerms" class="form-control">
+                            <option value="">Select Payment Terms</option>
+                            <option value="L/C">Letter of Credit (L/C)</option>
+                            <option value="T/T">Telegraphic Transfer (T/T)</option>
+                            <option value="D/A">Documents Against Acceptance</option>
+                            <option value="D/P">Documents Against Payment</option>
+                            <option value="Advance">Advance Payment</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Vessel / Flight Name</label>
+                        <input type="text" id="vesselName" class="form-control" placeholder="MV Cargo Express">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Container / Package Type</label>
+                        <select id="packageType" class="form-control">
+                            <option value="">Select Type</option>
+                            <option value="20ft Container">20ft Container</option>
+                            <option value="40ft Container">40ft Container</option>
+                            <option value="Pallets">Pallets</option>
+                            <option value="Cartons">Cartons</option>
+                            <option value="Wooden Crates">Wooden Crates</option>
+                            <option value="Drums">Drums</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Number of Packages</label>
+                        <input type="number" id="numPackages" class="form-control" placeholder="100">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Gross Weight (kg)</label>
+                        <input type="number" id="grossWeight" class="form-control" placeholder="5000.00" step="0.01">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Net Weight (kg)</label>
+                        <input type="number" id="netWeight" class="form-control" placeholder="4800.00" step="0.01">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Currency</label>
+                        <select id="currency" class="form-control">
+                            <option value="USD">USD - US Dollar</option>
+                            <option value="EUR">EUR - Euro</option>
+                            <option value="GBP">GBP - British Pound</option>
+                            <option value="INR">INR - Indian Rupee</option>
+                            <option value="CNY">CNY - Chinese Yuan</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section items-section">
+                <h2 class="section-title">📦 Items / Products</h2>
+                <div class="alert alert-info">
+                    💡 Add all items here. This data will automatically sync across all export documents.
+                </div>
+                <table class="items-table" id="itemsTable">
+                    <thead>
+                        <tr>
+                            <th style="width: 5%">#</th>
+                            <th style="width: 30%">Description of Goods</th>
+                            <th style="width: 15%">HS Code</th>
+                            <th style="width: 10%">Quantity</th>
+                            <th style="width: 10%">Unit</th>
+                            <th style="width: 12%">Unit Price</th>
+                            <th style="width: 13%">Total Amount</th>
+                            <th style="width: 5%">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="itemsTableBody">
+                        <tr>
+                            <td>1</td>
+                            <td><input type="text" placeholder="Cotton T-Shirts" class="item-desc"></td>
+                            <td><input type="text" placeholder="6109.10" class="item-hs"></td>
+                            <td><input type="number" placeholder="500" class="item-qty" oninput="calculateTotal(this)"></td>
+                            <td>
+                                <select class="item-unit">
+                                    <option value="PCS">PCS</option>
+                                    <option value="KGS">KGS</option>
+                                    <option value="MTR">MTR</option>
+                                    <option value="SET">SET</option>
+                                    <option value="BOX">BOX</option>
+                                    <option value="ROLL">ROLL</option>
+                                    <option value="PAIR">PAIR</option>
+                                </select>
+                            </td>
+                            <td><input type="number" placeholder="10.00" class="item-price" step="0.01" oninput="calculateTotal(this)"></td>
+                            <td><input type="number" placeholder="5000.00" class="item-total" step="0.01" readonly></td>
+                            <td><button class="btn btn-secondary btn-sm" onclick="deleteRow(this)">✕</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="btn-actions">
+                    <button class="btn btn-secondary" onclick="addItem()">+ Add Item</button>
+                    <button class="btn btn-secondary" onclick="saveFormData()">💾 Save Form Data</button>
+                    <button class="btn btn-secondary" onclick="loadFormData()">📂 Load Saved Data</button>
+                    <button class="btn btn-primary" onclick="switchTab('generate')">Continue to Generate Documents →</button>
+                </div>
+                <div id="saveStatus" style="margin-top: 12px; padding: 8px; border-radius: 6px; display: none;"></div>
+            </div>
+        </div>
+
+        <div id="generate" class="tab-content">
+            <div class="generate-section">
+                <h2 class="section-title">📄 Select Documents to Generate</h2>
+                <div class="alert alert-info">
+                    ✨ All data entered in Master Data will automatically populate across all selected documents. No re-entry needed!
+                </div>
+                <div class="document-selector">
+                    <div class="doc-checkbox">
+                        <input type="checkbox" id="doc-commercial-invoice" checked>
+                        <label for="doc-commercial-invoice">Commercial Invoice</label>
+                    </div>
+                    <div class="doc-checkbox">
+                        <input type="checkbox" id="doc-packing-list" checked>
+                        <label for="doc-packing-list">Packing List</label>
+                    </div>
+                    <div class="doc-checkbox">
+                        <input type="checkbox" id="doc-certificate-origin">
+                        <label for="doc-certificate-origin">Certificate of Origin</label>
+                    </div>
+                    <div class="doc-checkbox">
+                        <input type="checkbox" id="doc-shipping-bill">
+                        <label for="doc-shipping-bill">Shipping Bill</label>
+                    </div>
+                    <div class="doc-checkbox">
+                        <input type="checkbox" id="doc-sli">
+                        <label for="doc-sli">Shipper's Letter of Instruction</label>
+                    </div>
+                    <div class="doc-checkbox">
+                        <input type="checkbox" id="doc-proforma">
+                        <label for="doc-proforma">Proforma Invoice</label>
+                    </div>
+                    <div class="doc-checkbox">
+                        <input type="checkbox" id="doc-bill-lading">
+                        <label for="doc-bill-lading">Bill of Lading (B/L)</label>
+                    </div>
+                    <div class="doc-checkbox">
+                        <input type="checkbox" id="doc-air-waybill">
+                        <label for="doc-air-waybill">Air Waybill (AWB)</label>
+                    </div>
+                    <div class="doc-checkbox">
+                        <input type="checkbox" id="doc-insurance-certificate">
+                        <label for="doc-insurance-certificate">Insurance Certificate</label>
+                    </div>
+                    <div class="doc-checkbox">
+                        <input type="checkbox" id="doc-inspection-certificate">
+                        <label for="doc-inspection-certificate">Inspection Certificate</label>
+                    </div>
+                    <div class="doc-checkbox">
+                        <input type="checkbox" id="doc-phytosanitary">
+                        <label for="doc-phytosanitary">Phytosanitary Certificate</label>
+                    </div>
+                    <div class="doc-checkbox">
+                        <input type="checkbox" id="doc-fumigation">
+                        <label for="doc-fumigation">Fumigation Certificate</label>
+                    </div>
+                    <div class="doc-checkbox">
+                        <input type="checkbox" id="doc-health-certificate">
+                        <label for="doc-health-certificate">Health Certificate</label>
+                    </div>
+                    <div class="doc-checkbox">
+                        <input type="checkbox" id="doc-bill-exchange">
+                        <label for="doc-bill-exchange">Bill of Exchange / Draft</label>
+                    </div>
+                    <div class="doc-checkbox">
+                        <input type="checkbox" id="doc-letter-credit">
+                        <label for="doc-letter-credit">Letter of Credit (L/C)</label>
+                    </div>
+                    <div class="doc-checkbox">
+                        <input type="checkbox" id="doc-export-license">
+                        <label for="doc-export-license">Export License</label>
+                    </div>
+                    <div class="doc-checkbox">
+                        <input type="checkbox" id="doc-dangerous-goods">
+                        <label for="doc-dangerous-goods">Dangerous Goods Declaration</label>
+                    </div>
+                    <div class="doc-checkbox">
+                        <input type="checkbox" id="doc-free-sale">
+                        <label for="doc-free-sale">Certificate of Free Sale</label>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 24px;">
+                    <button class="btn btn-primary" onclick="generateDocuments()" style="padding: 12px 32px; font-size: 16px;">
+                        🚀 Generate Selected Documents
+                    </button>
+                </div>
+            </div>
+
+            <div class="preview-area" id="previewArea">
+                <div class="signature-controls">
+                    <button class="btn btn-primary" onclick="toggleSignaturePad()">✍️ Add Digital Signature</button>
+                    <button class="btn btn-secondary" onclick="toggleResizeControls()">📐 Customize Layout</button>
+                </div>
+
+                <div class="signature-pad-container" id="signaturePadContainer">
+                    <h3 style="margin-bottom: 12px; font-size: 16px;">Draw Your Signature</h3>
+                    <canvas id="signatureCanvas" class="signature-canvas" width="500" height="150"></canvas>
+                    <div class="signature-buttons">
+                        <button class="btn btn-secondary btn-sm" onclick="clearSignature()">Clear</button>
+                        <button class="btn btn-primary btn-sm" onclick="applySignature()">Apply to All Documents</button>
+                    </div>
+                </div>
+
+                <div class="resize-controls" id="resizeControls" style="display: none;">
+                    <h3 style="margin-bottom: 12px; font-size: 16px;">Adjust Document Layout</h3>
+                    <div class="resize-sliders">
+                        <div class="slider-group">
+                            <label>Font Size: <span class="slider-value" id="fontSizeValue">100%</span></label>
+                            <input type="range" id="fontSizeSlider" min="70" max="130" value="100" oninput="adjustFontSize(this.value)">
+                        </div>
+                        <div class="slider-group">
+                            <label>Padding: <span class="slider-value" id="paddingValue">40px</span></label>
+                            <input type="range" id="paddingSlider" min="20" max="60" value="40" oninput="adjustPadding(this.value)">
+                        </div>
+                        <div class="slider-group">
+                            <label>Section Spacing: <span class="slider-value" id="spacingValue">20px</span></label>
+                            <input type="range" id="spacingSlider" min="10" max="40" value="20" oninput="adjustSpacing(this.value)">
+                        </div>
+                        <div class="slider-group">
+                            <label>Table Size: <span class="slider-value" id="tableSizeValue">100%</span></label>
+                            <input type="range" id="tableSizeSlider" min="80" max="120" value="100" oninput="adjustTableSize(this.value)">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="print-buttons">
+                    <button class="btn btn-primary" onclick="printAllDocuments()">🖨️ Print Documents</button>
+                    <div class="export-dropdown">
+                        <button class="btn btn-secondary">⬇️ Export As ▼</button>
+                        <div class="dropdown-content">
+                            <button onclick="exportToPDF()">📄 PDF</button>
+                            <button onclick="exportToWord()">📝 Word (DOCX)</button>
+                            <button onclick="exportToExcel()">📊 Excel (XLSX)</button>
+                            <button onclick="exportToCSV()">📋 CSV</button>
+                            <button onclick="exportToHTML()">🌐 HTML</button>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="emailDocuments()">📧 Email Documents</button>
+                </div>
+                <div id="documentsContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let savedFormData = null;
+
+        function saveFormData() {
+            const data = collectFormData();
+            savedFormData = {
+                ...data,
+                timestamp: new Date().toISOString()
+            };
+            
+            showSaveStatus('✅ Form data saved successfully! You can now reload it anytime.', 'success');
+        }
+
+        function loadFormData() {
+            if (!savedFormData) {
+                showSaveStatus('⚠️ No saved data found. Please save your data first.', 'warning');
+                return;
+            }
+
+            const data = savedFormData;
+
+            document.getElementById('exporterName').value = data.exporter.name || '';
+            document.getElementById('exporterAddress').value = data.exporter.address || '';
+            document.getElementById('exporterCity').value = data.exporter.city || '';
+            document.getElementById('exporterContact').value = data.exporter.contact || '';
+            document.getElementById('exporterEmail').value = data.exporter.email || '';
+            document.getElementById('exporterIEC').value = data.exporter.iec || '';
+            document.getElementById('exporterGST').value = data.exporter.gst || '';
+
+            document.getElementById('consigneeName').value = data.consignee.name || '';
+            document.getElementById('consigneeAddress').value = data.consignee.address || '';
+            document.getElementById('consigneeCity').value = data.consignee.city || '';
+            document.getElementById('consigneeContact').value = data.consignee.contact || '';
+            document.getElementById('consigneeEmail').value = data.consignee.email || '';
+
+            document.getElementById('invoiceNumber').value = data.shipment.invoiceNumber || '';
+            document.getElementById('invoiceDate').value = data.shipment.invoiceDate || '';
+            document.getElementById('poNumber').value = data.shipment.poNumber || '';
+            document.getElementById('portLoading').value = data.shipment.portLoading || '';
+            document.getElementById('portDischarge').value = data.shipment.portDischarge || '';
+            document.getElementById('countryOrigin').value = data.shipment.countryOrigin || '';
+            document.getElementById('incoterms').value = data.shipment.incoterms || '';
+            document.getElementById('paymentTerms').value = data.shipment.paymentTerms || '';
+            document.getElementById('vesselName').value = data.shipment.vesselName || '';
+            document.getElementById('packageType').value = data.shipment.packageType || '';
+            document.getElementById('numPackages').value = data.shipment.numPackages || '';
+            document.getElementById('grossWeight').value = data.shipment.grossWeight || '';
+            document.getElementById('netWeight').value = data.shipment.netWeight || '';
+            document.getElementById('currency').value = data.shipment.currency || '';
+
+            const tbody = document.getElementById('itemsTableBody');
+            tbody.innerHTML = '';
+            
+            data.items.forEach((item, index) => {
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td><input type="text" placeholder="Item description" class="item-desc" value="${item.desc || ''}"></td>
+                    <td><input type="text" placeholder="HS Code" class="item-hs" value="${item.hs || ''}"></td>
+                    <td><input type="number" placeholder="Quantity" class="item-qty" oninput="calculateTotal(this)" value="${item.qty || ''}"></td>
+                    <td>
+                        <select class="item-unit">
+                            <option value="PCS" ${item.unit === 'PCS' ? 'selected' : ''}>PCS</option>
+                            <option value="KGS" ${item.unit === 'KGS' ? 'selected' : ''}>KGS</option>
+                            <option value="MTR" ${item.unit === 'MTR' ? 'selected' : ''}>MTR</option>
+                            <option value="SET" ${item.unit === 'SET' ? 'selected' : ''}>SET</option>
+                            <option value="BOX" ${item.unit === 'BOX' ? 'selected' : ''}>BOX</option>
+                            <option value="ROLL" ${item.unit === 'ROLL' ? 'selected' : ''}>ROLL</option>
+                            <option value="PAIR" ${item.unit === 'PAIR' ? 'selected' : ''}>PAIR</option>
+                        </select>
+                    </td>
+                    <td><input type="number" placeholder="Unit Price" class="item-price" step="0.01" oninput="calculateTotal(this)" value="${item.price || ''}"></td>
+                    <td><input type="number" placeholder="Total" class="item-total" step="0.01" readonly value="${item.total || ''}"></td>
+                    <td><button class="btn btn-secondary btn-sm" onclick="deleteRow(this)">✕</button></td>
+                `;
+                tbody.appendChild(newRow);
+            });
+
+            if (data.items.length === 0) {
+                addItem();
+            }
+
+            const savedDate = new Date(data.timestamp).toLocaleString();
+            showSaveStatus(`✅ Form data loaded successfully! (Saved on: ${savedDate})`, 'success');
+        }
+
+        function clearSavedData() {
+            savedFormData = null;
+            showSaveStatus('🗑️ Saved data cleared.', 'info');
+        }
+
+        function showSaveStatus(message, type) {
+            const statusDiv = document.getElementById('saveStatus');
+            statusDiv.textContent = message;
+            statusDiv.style.display = 'block';
+            
+            if (type === 'success') {
+                statusDiv.style.background = 'rgba(var(--color-success-rgb), 0.15)';
+                statusDiv.style.border = '1px solid rgba(var(--color-success-rgb), 0.25)';
+                statusDiv.style.color = 'var(--color-success)';
+            } else if (type === 'warning') {
+                statusDiv.style.background = 'rgba(var(--color-warning-rgb), 0.15)';
+                statusDiv.style.border = '1px solid rgba(var(--color-warning-rgb), 0.25)';
+                statusDiv.style.color = 'var(--color-warning)';
+            } else if (type === 'info') {
+                statusDiv.style.background = 'rgba(var(--color-info-rgb), 0.15)';
+                statusDiv.style.border = '1px solid rgba(var(--color-info-rgb), 0.25)';
+                statusDiv.style.color = 'var(--color-info)';
+            }
+
+            setTimeout(() => {
+                statusDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+
+        function addItem() {
+            const tbody = document.getElementById('itemsTableBody');
+            const rowCount = tbody.querySelectorAll('tr').length + 1;
+            const newRow = document.createElement('tr');
+            
+            newRow.innerHTML = `
+                <td>${rowCount}</td>
+                <td><input type="text" placeholder="Item description" class="item-desc"></td>
+                <td><input type="text" placeholder="HS Code" class="item-hs"></td>
+                <td><input type="number" placeholder="Quantity" class="item-qty" oninput="calculateTotal(this)"></td>
+                <td>
+                    <select class="item-unit">
+                        <option value="PCS">PCS</option>
+                        <option value="KGS">KGS</option>
+                        <option value="MTR">MTR</option>
+                        <option value="SET">SET</option>
+                        <option value="BOX">BOX</option>
+                        <option value="ROLL">ROLL</option>
+                        <option value="PAIR">PAIR</option>
+                    </select>
+                </td>
+                <td><input type="number" placeholder="Unit Price" class="item-price" step="0.01" oninput="calculateTotal(this)"></td>
+                <td><input type="number" placeholder="Total" class="item-total" step="0.01" readonly></td>
+                <td><button class="btn btn-secondary btn-sm" onclick="deleteRow(this)">✕</button></td>
+            `;
+            
+            tbody.appendChild(newRow);
+        }
+
+        function deleteRow(button) {
+            const row = button.closest('tr');
+            row.remove();
+            updateRowNumbers();
+        }
+
+        function updateRowNumbers() {
+            const rows = document.querySelectorAll('#itemsTableBody tr');
+            rows.forEach((row, index) => {
+                row.querySelector('td:first-child').textContent = index + 1;
+            });
+        }
+
+        function calculateTotal(input) {
+            const row = input.closest('tr');
+            const qty = parseFloat(row.querySelector('.item-qty').value) || 0;
+            const price = parseFloat(row.querySelector('.item-price').value) || 0;
+            const total = qty * price;
+            row.querySelector('.item-total').value = total.toFixed(2);
+        }
+
+        function collectFormData() {
+            const items = [];
+            document.querySelectorAll('#itemsTableBody tr').forEach(row => {
+                const desc = row.querySelector('.item-desc').value;
+                const hs = row.querySelector('.item-hs').value;
+                const qty = row.querySelector('.item-qty').value;
+                const unit = row.querySelector('.item-unit').value;
+                const price = row.querySelector('.item-price').value;
+                const total = row.querySelector('.item-total').value;
+                
+                if (desc || qty || price) {
+                    items.push({ desc, hs, qty, unit, price, total });
+                }
+            });
+
+            return {
+                exporter: {
+                    name: document.getElementById('exporterName').value,
+                    address: document.getElementById('exporterAddress').value,
+                    city: document.getElementById('exporterCity').value,
+                    contact: document.getElementById('exporterContact').value,
+                    email: document.getElementById('exporterEmail').value,
+                    iec: document.getElementById('exporterIEC').value,
+                    gst: document.getElementById('exporterGST').value
+                },
+                consignee: {
+                    name: document.getElementById('consigneeName').value,
+                    address: document.getElementById('consigneeAddress').value,
+                    city: document.getElementById('consigneeCity').value,
+                    contact: document.getElementById('consigneeContact').value,
+                    email: document.getElementById('consigneeEmail').value
+                },
+                shipment: {
+                    invoiceNumber: document.getElementById('invoiceNumber').value,
+                    invoiceDate: document.getElementById('invoiceDate').value,
+                    poNumber: document.getElementById('poNumber').value,
+                    portLoading: document.getElementById('portLoading').value,
+                    portDischarge: document.getElementById('portDischarge').value,
+                    countryOrigin: document.getElementById('countryOrigin').value,
+                    incoterms: document.getElementById('incoterms').value,
+                    paymentTerms: document.getElementById('paymentTerms').value,
+                    vesselName: document.getElementById('vesselName').value,
+                    packageType: document.getElementById('packageType').value,
+                    numPackages: document.getElementById('numPackages').value,
+                    grossWeight: document.getElementById('grossWeight').value,
+                    netWeight: document.getElementById('netWeight').value,
+                    currency: document.getElementById('currency').value
+                },
+                items: items
+            };
+        }
+
+        function generateDocuments() {
+            const data = collectFormData();
+            
+            if (!data.exporter.name || !data.consignee.name || !data.shipment.invoiceNumber) {
+                alert('Please fill in required fields: Exporter Name, Consignee Name, and Invoice Number');
+                return;
+            }
+
+            if (data.items.length === 0) {
+                alert('Please add at least one item to the items list');
+                return;
+            }
+
+            const container = document.getElementById('documentsContainer');
+            container.innerHTML = '';
+
+            if (document.getElementById('doc-commercial-invoice').checked) {
+                container.innerHTML += generateCommercialInvoice(data);
+            }
+            if (document.getElementById('doc-packing-list').checked) {
+                container.innerHTML += generatePackingList(data);
+            }
+            if (document.getElementById('doc-certificate-origin').checked) {
+                container.innerHTML += generateCertificateOfOrigin(data);
+            }
+            if (document.getElementById('doc-shipping-bill').checked) {
+                container.innerHTML += generateShippingBill(data);
+            }
+            if (document.getElementById('doc-sli').checked) {
+                container.innerHTML += generateSLI(data);
+            }
+            if (document.getElementById('doc-proforma').checked) {
+                container.innerHTML += generateProformaInvoice(data);
+            }
+            if (document.getElementById('doc-bill-lading').checked) {
+                container.innerHTML += generateBillOfLading(data);
+            }
+            if (document.getElementById('doc-air-waybill').checked) {
+                container.innerHTML += generateAirWaybill(data);
+            }
+            if (document.getElementById('doc-insurance-certificate').checked) {
+                container.innerHTML += generateInsuranceCertificate(data);
+            }
+            if (document.getElementById('doc-inspection-certificate').checked) {
+                container.innerHTML += generateInspectionCertificate(data);
+            }
+            if (document.getElementById('doc-phytosanitary').checked) {
+                container.innerHTML += generatePhytosanitaryCertificate(data);
+            }
+            if (document.getElementById('doc-fumigation').checked) {
+                container.innerHTML += generateFumigationCertificate(data);
+            }
+            if (document.getElementById('doc-health-certificate').checked) {
+                container.innerHTML += generateHealthCertificate(data);
+            }
+            if (document.getElementById('doc-bill-exchange').checked) {
+                container.innerHTML += generateBillOfExchange(data);
+            }
+            if (document.getElementById('doc-letter-credit').checked) {
+                container.innerHTML += generateLetterOfCredit(data);
+            }
+            if (document.getElementById('doc-export-license').checked) {
+                container.innerHTML += generateExportLicense(data);
+            }
+            if (document.getElementById('doc-dangerous-goods').checked) {
+                container.innerHTML += generateDangerousGoodsDeclaration(data);
+            }
+            if (document.getElementById('doc-free-sale').checked) {
+                container.innerHTML += generateCertificateOfFreeSale(data);
+            }
+
+            document.getElementById('previewArea').classList.add('active');
+            document.getElementById('previewArea').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function generateCommercialInvoice(data) {
+            const total = data.items.reduce((sum, item) => sum + parseFloat(item.total || 0), 0);
+            
+            let itemsHTML = data.items.map((item, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${item.desc}</td>
+                    <td>${item.hs}</td>
+                    <td>${item.qty} ${item.unit}</td>
+                    <td>${item.price}</td>
+                    <td>${item.total}</td>
+                </tr>
+            `).join('');
+
+            return `
+                <div class="document-preview">
+                    <div class="doc-title">COMMERCIAL INVOICE</div>
+                    
+                    <div class="doc-section">
+                        <div class="doc-section-title">Exporter / Shipper</div>
+                        <div><strong>${data.exporter.name}</strong></div>
+                        <div>${data.exporter.address}</div>
+                        <div>${data.exporter.city}</div>
+                        ${data.exporter.contact ? `<div>Tel: ${data.exporter.contact}</div>` : ''}
+                        ${data.exporter.email ? `<div>Email: ${data.exporter.email}</div>` : ''}
+                        ${data.exporter.iec ? `<div>IEC: ${data.exporter.iec}</div>` : ''}
+                        ${data.exporter.gst ? `<div>GST: ${data.exporter.gst}</div>` : ''}
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Consignee / Buyer</div>
+                        <div><strong>${data.consignee.name}</strong></div>
+                        <div>${data.consignee.address}</div>
+                        <div>${data.consignee.city}</div>
+                        ${data.consignee.contact ? `<div>Tel: ${data.consignee.contact}</div>` : ''}
+                        ${data.consignee.email ? `<div>Email: ${data.consignee.email}</div>` : ''}
+                    </div>
+
+                    <div class="doc-row">
+                        <div><span class="doc-label">Invoice No:</span> ${data.shipment.invoiceNumber}</div>
+                        <div><span class="doc-label">Date:</span> ${data.shipment.invoiceDate || new Date().toISOString().split('T')[0]}</div>
+                    </div>
+                    <div class="doc-row">
+                        <div><span class="doc-label">PO / Contract No:</span> ${data.shipment.poNumber || 'N/A'}</div>
+                        <div><span class="doc-label">Incoterms:</span> ${data.shipment.incoterms || 'N/A'}</div>
+                    </div>
+                    <div class="doc-row">
+                        <div><span class="doc-label">Port of Loading:</span> ${data.shipment.portLoading || 'N/A'}</div>
+                        <div><span class="doc-label">Port of Discharge:</span> ${data.shipment.portDischarge || 'N/A'}</div>
+                    </div>
+                    <div class="doc-row">
+                        <div><span class="doc-label">Country of Origin:</span> ${data.shipment.countryOrigin || 'N/A'}</div>
+                        <div><span class="doc-label">Payment Terms:</span> ${data.shipment.paymentTerms || 'N/A'}</div>
+                    </div>
+
+                    <table class="items-preview-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Description of Goods</th>
+                                <th>HS Code</th>
+                                <th>Quantity</th>
+                                <th>Unit Price</th>
+                                <th>Amount (${data.shipment.currency})</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${itemsHTML}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="5" style="text-align: right;">TOTAL:</th>
+                                <th>${data.shipment.currency} ${total.toFixed(2)}</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <div class="doc-footer">
+                        <div><strong>Total Amount in Words:</strong> ${numberToWords(total)} ${data.shipment.currency} Only</div>
+                        <div style="margin-top: 20px;"><strong>Declaration:</strong> We declare that this invoice shows the actual price of the goods described and that all particulars are true and correct.</div>
+                        <div class="signature-line">Authorized Signature</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generatePackingList(data) {
+            let itemsHTML = data.items.map((item, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${item.desc}</td>
+                    <td>${item.qty} ${item.unit}</td>
+                    <td>${data.shipment.packageType || 'N/A'}</td>
+                    <td>${item.hs}</td>
+                </tr>
+            `).join('');
+
+            return `
+                <div class="document-preview">
+                    <div class="doc-title">PACKING LIST</div>
+                    
+                    <div class="doc-section">
+                        <div class="doc-section-title">Exporter / Shipper</div>
+                        <div><strong>${data.exporter.name}</strong></div>
+                        <div>${data.exporter.address}, ${data.exporter.city}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Consignee</div>
+                        <div><strong>${data.consignee.name}</strong></div>
+                        <div>${data.consignee.address}, ${data.consignee.city}</div>
+                    </div>
+
+                    <div class="doc-row">
+                        <div><span class="doc-label">Invoice No:</span> ${data.shipment.invoiceNumber}</div>
+                        <div><span class="doc-label">Date:</span> ${data.shipment.invoiceDate || new Date().toISOString().split('T')[0]}</div>
+                    </div>
+                    <div class="doc-row">
+                        <div><span class="doc-label">Vessel / Flight:</span> ${data.shipment.vesselName || 'N/A'}</div>
+                        <div><span class="doc-label">No. of Packages:</span> ${data.shipment.numPackages || 'N/A'}</div>
+                    </div>
+                    <div class="doc-row">
+                        <div><span class="doc-label">Gross Weight:</span> ${data.shipment.grossWeight || 'N/A'} KG</div>
+                        <div><span class="doc-label">Net Weight:</span> ${data.shipment.netWeight || 'N/A'} KG</div>
+                    </div>
+
+                    <table class="items-preview-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Description</th>
+                                <th>Quantity</th>
+                                <th>Packing Type</th>
+                                <th>HS Code</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${itemsHTML}
+                        </tbody>
+                    </table>
+
+                    <div class="doc-footer">
+                        <div style="margin-top: 20px;"><strong>Marks & Numbers:</strong> ${data.consignee.name} / ${data.shipment.portDischarge}</div>
+                        <div class="signature-line">Authorized Signature</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateCertificateOfOrigin(data) {
+            let itemsHTML = data.items.map((item, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${item.desc}</td>
+                    <td>${item.qty} ${item.unit}</td>
+                    <td>${data.shipment.countryOrigin || 'N/A'}</td>
+                </tr>
+            `).join('');
+
+            return `
+                <div class="document-preview">
+                    <div class="doc-title">CERTIFICATE OF ORIGIN</div>
+                    
+                    <div class="doc-row">
+                        <div><span class="doc-label">Certificate No:</span> COO-${data.shipment.invoiceNumber}</div>
+                        <div><span class="doc-label">Date:</span> ${data.shipment.invoiceDate || new Date().toISOString().split('T')[0]}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Exporter</div>
+                        <div><strong>${data.exporter.name}</strong></div>
+                        <div>${data.exporter.address}, ${data.exporter.city}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Consignee</div>
+                        <div><strong>${data.consignee.name}</strong></div>
+                        <div>${data.consignee.address}, ${data.consignee.city}</div>
+                    </div>
+
+                    <div class="doc-row">
+                        <div><span class="doc-label">Invoice No:</span> ${data.shipment.invoiceNumber}</div>
+                        <div><span class="doc-label">Port of Discharge:</span> ${data.shipment.portDischarge || 'N/A'}</div>
+                    </div>
+
+                    <table class="items-preview-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Description of Goods</th>
+                                <th>Quantity</th>
+                                <th>Country of Origin</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${itemsHTML}
+                        </tbody>
+                    </table>
+
+                    <div class="doc-footer">
+                        <div style="margin-top: 20px;"><strong>Declaration:</strong> We hereby certify that the goods described above originated in ${data.shipment.countryOrigin || 'the specified country'}.</div>
+                        <div style="display: flex; justify-content: space-between; margin-top: 40px;">
+                            <div class="signature-line">Exporter's Signature</div>
+                            <div class="signature-line">Chamber of Commerce Stamp</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateShippingBill(data) {
+            const total = data.items.reduce((sum, item) => sum + parseFloat(item.total || 0), 0);
+            
+            return `
+                <div class="document-preview">
+                    <div class="doc-title">SHIPPING BILL</div>
+                    
+                    <div class="doc-row">
+                        <div><span class="doc-label">Shipping Bill No:</span> SB-${data.shipment.invoiceNumber}</div>
+                        <div><span class="doc-label">Date:</span> ${data.shipment.invoiceDate || new Date().toISOString().split('T')[0]}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Exporter Details</div>
+                        <div><strong>${data.exporter.name}</strong></div>
+                        <div>${data.exporter.address}, ${data.exporter.city}</div>
+                        ${data.exporter.iec ? `<div>IEC: ${data.exporter.iec}</div>` : ''}
+                        ${data.exporter.gst ? `<div>GST: ${data.exporter.gst}</div>` : ''}
+                    </div>
+
+                    <div class="doc-row">
+                        <div><span class="doc-label">Port of Loading:</span> ${data.shipment.portLoading || 'N/A'}</div>
+                        <div><span class="doc-label">Port of Discharge:</span> ${data.shipment.portDischarge || 'N/A'}</div>
+                    </div>
+                    <div class="doc-row">
+                        <div><span class="doc-label">Country of Destination:</span> ${data.consignee.city || 'N/A'}</div>
+                        <div><span class="doc-label">Invoice Value:</span> ${data.shipment.currency} ${total.toFixed(2)}</div>
+                    </div>
+
+                    <table class="items-preview-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Description</th>
+                                <th>HS Code</th>
+                                <th>Quantity</th>
+                                <th>FOB Value (${data.shipment.currency})</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${data.items.map((item, index) => `
+                                <tr>
+                                    <td>${index + 1}</td>
+                                    <td>${item.desc}</td>
+                                    <td>${item.hs}</td>
+                                    <td>${item.qty} ${item.unit}</td>
+                                    <td>${item.total}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+
+                    <div class="doc-footer">
+                        <div><strong>Total FOB Value:</strong> ${data.shipment.currency} ${total.toFixed(2)}</div>
+                        <div class="signature-line">Customs Authorized Officer</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateSLI(data) {
+            return `
+                <div class="document-preview">
+                    <div class="doc-title">SHIPPER'S LETTER OF INSTRUCTION (SLI)</div>
+                    
+                    <div class="doc-row">
+                        <div><span class="doc-label">Reference No:</span> SLI-${data.shipment.invoiceNumber}</div>
+                        <div><span class="doc-label">Date:</span> ${data.shipment.invoiceDate || new Date().toISOString().split('T')[0]}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">To: Freight Forwarder / Carrier</div>
+                        <div>Please arrange shipment as per following instructions:</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Shipper</div>
+                        <div><strong>${data.exporter.name}</strong></div>
+                        <div>${data.exporter.address}, ${data.exporter.city}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Consignee</div>
+                        <div><strong>${data.consignee.name}</strong></div>
+                        <div>${data.consignee.address}, ${data.consignee.city}</div>
+                    </div>
+
+                    <div class="doc-row">
+                        <div><span class="doc-label">Port of Loading:</span> ${data.shipment.portLoading || 'N/A'}</div>
+                        <div><span class="doc-label">Port of Discharge:</span> ${data.shipment.portDischarge || 'N/A'}</div>
+                    </div>
+                    <div class="doc-row">
+                        <div><span class="doc-label">Vessel / Flight:</span> ${data.shipment.vesselName || 'N/A'}</div>
+                        <div><span class="doc-label">No. of Packages:</span> ${data.shipment.numPackages || 'N/A'}</div>
+                    </div>
+                    <div class="doc-row">
+                        <div><span class="doc-label">Gross Weight:</span> ${data.shipment.grossWeight || 'N/A'} KG</div>
+                        <div><span class="doc-label">Incoterms:</span> ${data.shipment.incoterms || 'N/A'}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Description of Goods</div>
+                        ${data.items.map(item => `<div>• ${item.qty} ${item.unit} of ${item.desc}</div>`).join('')}
+                    </div>
+
+                    <div class="doc-footer">
+                        <div style="margin-top: 20px;"><strong>Special Instructions:</strong> Handle with care. Notify consignee upon arrival.</div>
+                        <div class="signature-line">Shipper's Signature</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateProformaInvoice(data) {
+            const total = data.items.reduce((sum, item) => sum + parseFloat(item.total || 0), 0);
+            
+            let itemsHTML = data.items.map((item, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${item.desc}</td>
+                    <td>${item.qty} ${item.unit}</td>
+                    <td>${item.price}</td>
+                    <td>${item.total}</td>
+                </tr>
+            `).join('');
+
+            return `
+                <div class="document-preview">
+                    <div class="doc-title">PROFORMA INVOICE</div>
+                    <div style="text-align: center; margin-bottom: 20px; font-style: italic;">(For Reference Only - Not a Tax Invoice)</div>
+                    
+                    <div class="doc-section">
+                        <div class="doc-section-title">Seller</div>
+                        <div><strong>${data.exporter.name}</strong></div>
+                        <div>${data.exporter.address}, ${data.exporter.city}</div>
+                        ${data.exporter.contact ? `<div>Tel: ${data.exporter.contact}</div>` : ''}
+                        ${data.exporter.email ? `<div>Email: ${data.exporter.email}</div>` : ''}
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Buyer</div>
+                        <div><strong>${data.consignee.name}</strong></div>
+                        <div>${data.consignee.address}, ${data.consignee.city}</div>
+                    </div>
+
+                    <div class="doc-row">
+                        <div><span class="doc-label">Proforma Invoice No:</span> PI-${data.shipment.invoiceNumber}</div>
+                        <div><span class="doc-label">Date:</span> ${data.shipment.invoiceDate || new Date().toISOString().split('T')[0]}</div>
+                    </div>
+                    <div class="doc-row">
+                        <div><span class="doc-label">Incoterms:</span> ${data.shipment.incoterms || 'N/A'}</div>
+                        <div><span class="doc-label">Payment Terms:</span> ${data.shipment.paymentTerms || 'N/A'}</div>
+                    </div>
+
+                    <table class="items-preview-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Description</th>
+                                <th>Quantity</th>
+                                <th>Unit Price (${data.shipment.currency})</th>
+                                <th>Amount (${data.shipment.currency})</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${itemsHTML}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="4" style="text-align: right;">TOTAL:</th>
+                                <th>${data.shipment.currency} ${total.toFixed(2)}</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <div class="doc-footer">
+                        <div style="margin-top: 20px;"><strong>Validity:</strong> This proforma invoice is valid for 30 days from the date of issue.</div>
+                        <div style="margin-top: 10px;"><strong>Note:</strong> This is a preliminary invoice for quotation purposes only. Final commercial invoice will be issued upon shipment.</div>
+                        <div class="signature-line">Authorized Signature</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function numberToWords(num) {
+            const ones = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine'];
+            const teens = ['Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+            const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+            const thousands = ['', 'Thousand', 'Million', 'Billion'];
+
+            if (num === 0) return 'Zero';
+
+            let words = '';
+            let i = 0;
+
+            while (num > 0) {
+                if (num % 1000 !== 0) {
+                    words = convertHundreds(num % 1000) + ' ' + thousands[i] + ' ' + words;
+                }
+                num = Math.floor(num / 1000);
+                i++;
+            }
+
+            function convertHundreds(n) {
+                if (n === 0) return '';
+                if (n < 10) return ones[n];
+                if (n < 20) return teens[n - 10];
+                if (n < 100) return tens[Math.floor(n / 10)] + ' ' + ones[n % 10];
+                return ones[Math.floor(n / 100)] + ' Hundred ' + convertHundreds(n % 100);
+            }
+
+            return words.trim();
+        }
+
+        function printAllDocuments() {
+            window.print();
+        }
+
+        function generateBillOfLading(data) {
+            return `
+                <div class="document-preview">
+                    <div class="doc-title">BILL OF LADING (B/L)</div>
+                    <div style="text-align: center; font-style: italic; margin-bottom: 20px;">Non-Negotiable Copy</div>
+                    
+                    <div class="doc-row">
+                        <div><span class="doc-label">B/L No:</span> BL-${data.shipment.invoiceNumber}</div>
+                        <div><span class="doc-label">Date:</span> ${data.shipment.invoiceDate || new Date().toISOString().split('T')[0]}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Shipper</div>
+                        <div><strong>${data.exporter.name}</strong></div>
+                        <div>${data.exporter.address}, ${data.exporter.city}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Consignee</div>
+                        <div><strong>${data.consignee.name}</strong></div>
+                        <div>${data.consignee.address}, ${data.consignee.city}</div>
+                    </div>
+
+                    <div class="doc-row">
+                        <div><span class="doc-label">Vessel:</span> ${data.shipment.vesselName || 'N/A'}</div>
+                        <div><span class="doc-label">Port of Loading:</span> ${data.shipment.portLoading || 'N/A'}</div>
+                    </div>
+                    <div class="doc-row">
+                        <div><span class="doc-label">Port of Discharge:</span> ${data.shipment.portDischarge || 'N/A'}</div>
+                        <div><span class="doc-label">No. of Packages:</span> ${data.shipment.numPackages || 'N/A'}</div>
+                    </div>
+                    <div class="doc-row">
+                        <div><span class="doc-label">Gross Weight:</span> ${data.shipment.grossWeight || 'N/A'} KG</div>
+                        <div><span class="doc-label">Net Weight:</span> ${data.shipment.netWeight || 'N/A'} KG</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Description of Goods</div>
+                        ${data.items.map(item => `<div>• ${item.qty} ${item.unit} - ${item.desc}</div>`).join('')}
+                    </div>
+
+                    <div class="doc-footer">
+                        <div style="margin-top: 20px;"><strong>Freight Terms:</strong> ${data.shipment.incoterms || 'N/A'}</div>
+                        <div><strong>Container Type:</strong> ${data.shipment.packageType || 'N/A'}</div>
+                        <div class="signature-line">Carrier's Signature & Stamp</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateAirWaybill(data) {
+            return `
+                <div class="document-preview">
+                    <div class="doc-title">AIR WAYBILL (AWB)</div>
+                    <div style="text-align: center; font-style: italic; margin-bottom: 20px;">Non-Negotiable</div>
+                    
+                    <div class="doc-row">
+                        <div><span class="doc-label">AWB No:</span> ${Math.floor(Math.random() * 90000000) + 10000000}</div>
+                        <div><span class="doc-label">Date:</span> ${data.shipment.invoiceDate || new Date().toISOString().split('T')[0]}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Shipper / Consignor</div>
+                        <div><strong>${data.exporter.name}</strong></div>
+                        <div>${data.exporter.address}, ${data.exporter.city}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Consignee</div>
+                        <div><strong>${data.consignee.name}</strong></div>
+                        <div>${data.consignee.address}, ${data.consignee.city}</div>
+                    </div>
+
+                    <div class="doc-row">
+                        <div><span class="doc-label">Airport of Departure:</span> ${data.shipment.portLoading || 'N/A'}</div>
+                        <div><span class="doc-label">Airport of Destination:</span> ${data.shipment.portDischarge || 'N/A'}</div>
+                    </div>
+                    <div class="doc-row">
+                        <div><span class="doc-label">Flight:</span> ${data.shipment.vesselName || 'N/A'}</div>
+                        <div><span class="doc-label">No. of Pieces:</span> ${data.shipment.numPackages || 'N/A'}</div>
+                    </div>
+                    <div class="doc-row">
+                        <div><span class="doc-label">Gross Weight:</span> ${data.shipment.grossWeight || 'N/A'} KG</div>
+                        <div><span class="doc-label">Chargeable Weight:</span> ${data.shipment.grossWeight || 'N/A'} KG</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Nature and Quantity of Goods</div>
+                        ${data.items.map(item => `<div>• ${item.qty} ${item.unit} - ${item.desc}</div>`).join('')}
+                    </div>
+
+                    <div class="doc-footer">
+                        <div style="margin-top: 20px;"><strong>Handling Information:</strong> Handle with care</div>
+                        <div class="signature-line">Airline Agent Signature</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateInsuranceCertificate(data) {
+            const total = data.items.reduce((sum, item) => sum + parseFloat(item.total || 0), 0);
+            const insuredValue = (total * 1.1).toFixed(2);
+            
+            return `
+                <div class="document-preview">
+                    <div class="doc-title">CERTIFICATE OF INSURANCE</div>
+                    
+                    <div class="doc-row">
+                        <div><span class="doc-label">Certificate No:</span> INS-${data.shipment.invoiceNumber}</div>
+                        <div><span class="doc-label">Date:</span> ${data.shipment.invoiceDate || new Date().toISOString().split('T')[0]}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Assured / Insured</div>
+                        <div><strong>${data.consignee.name}</strong></div>
+                        <div>${data.consignee.address}, ${data.consignee.city}</div>
+                    </div>
+
+                    <div class="doc-row">
+                        <div><span class="doc-label">Invoice No:</span> ${data.shipment.invoiceNumber}</div>
+                        <div><span class="doc-label">Vessel / Flight:</span> ${data.shipment.vesselName || 'N/A'}</div>
+                    </div>
+                    <div class="doc-row">
+                        <div><span class="doc-label">From:</span> ${data.shipment.portLoading || 'N/A'}</div>
+                        <div><span class="doc-label">To:</span> ${data.shipment.portDischarge || 'N/A'}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Description of Goods</div>
+                        ${data.items.map(item => `<div>• ${item.desc}</div>`).join('')}
+                    </div>
+
+                    <div class="doc-row">
+                        <div><span class="doc-label">Sum Insured:</span> ${data.shipment.currency} ${insuredValue}</div>
+                        <div><span class="doc-label">Basis:</span> 110% of Invoice Value</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Coverage</div>
+                        <div>• All risks of physical loss or damage from external causes</div>
+                        <div>• War, strikes, riots and civil commotion risks</div>
+                        <div>• Total loss and general average</div>
+                    </div>
+
+                    <div class="doc-footer">
+                        <div style="margin-top: 20px;"><strong>Terms:</strong> Institute Cargo Clauses (A)</div>
+                        <div class="signature-line">Insurance Company Authorized Signature</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateInspectionCertificate(data) {
+            return `
+                <div class="document-preview">
+                    <div class="doc-title">INSPECTION CERTIFICATE</div>
+                    
+                    <div class="doc-row">
+                        <div><span class="doc-label">Certificate No:</span> IC-${data.shipment.invoiceNumber}</div>
+                        <div><span class="doc-label">Date:</span> ${data.shipment.invoiceDate || new Date().toISOString().split('T')[0]}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Exporter</div>
+                        <div><strong>${data.exporter.name}</strong></div>
+                        <div>${data.exporter.address}, ${data.exporter.city}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Buyer / Consignee</div>
+                        <div><strong>${data.consignee.name}</strong></div>
+                        <div>${data.consignee.address}, ${data.consignee.city}</div>
+                    </div>
+
+                    <div class="doc-row">
+                        <div><span class="doc-label">Invoice No:</span> ${data.shipment.invoiceNumber}</div>
+                        <div><span class="doc-label">PO No:</span> ${data.shipment.poNumber || 'N/A'}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Description of Goods Inspected</div>
+                        ${data.items.map(item => `<div>• ${item.qty} ${item.unit} of ${item.desc}</div>`).join('')}
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Inspection Results</div>
+                        <div>✓ Quality conforms to purchase order specifications</div>
+                        <div>✓ Quantity verified and matches shipping documents</div>
+                        <div>✓ Packaging is suitable for international transport</div>
+                        <div>✓ Goods are in good condition and fit for shipment</div>
+                    </div>
+
+                    <div class="doc-footer">
+                        <div style="margin-top: 20px;"><strong>Declaration:</strong> We hereby certify that the goods have been inspected and found to be in accordance with the specifications.</div>
+                        <div style="display: flex; justify-content: space-between; margin-top: 40px;">
+                            <div class="signature-line">Inspector's Signature</div>
+                            <div class="signature-line">Company Stamp</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generatePhytosanitaryCertificate(data) {
+            return `
+                <div class="document-preview">
+                    <div class="doc-title">PHYTOSANITARY CERTIFICATE</div>
+                    <div style="text-align: center; font-style: italic; margin-bottom: 20px;">Plant Protection Organization</div>
+                    
+                    <div class="doc-row">
+                        <div><span class="doc-label">Certificate No:</span> PC-${data.shipment.invoiceNumber}</div>
+                        <div><span class="doc-label">Date:</span> ${data.shipment.invoiceDate || new Date().toISOString().split('T')[0]}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Exporter</div>
+                        <div><strong>${data.exporter.name}</strong></div>
+                        <div>${data.exporter.address}, ${data.exporter.city}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Consignee</div>
+                        <div><strong>${data.consignee.name}</strong></div>
+                        <div>${data.consignee.address}, ${data.consignee.city}</div>
+                    </div>
+
+                    <div class="doc-row">
+                        <div><span class="doc-label">Port of Entry:</span> ${data.shipment.portDischarge || 'N/A'}</div>
+                        <div><span class="doc-label">Country of Origin:</span> ${data.shipment.countryOrigin || 'N/A'}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Description of Consignment</div>
+                        ${data.items.map(item => `<div>• ${item.qty} ${item.unit} of ${item.desc}</div>`).join('')}
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Phytosanitary Declaration</div>
+                        <div>This is to certify that the plants, plant products, or other regulated articles described herein have been inspected and/or tested according to appropriate official procedures and are considered to be free from quarantine pests and practically free from other injurious pests.</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Treatment</div>
+                        <div>✓ Inspection conducted on: ${data.shipment.invoiceDate || new Date().toISOString().split('T')[0]}</div>
+                        <div>✓ No quarantine pests detected</div>
+                        <div>✓ Meets phytosanitary import requirements</div>
+                    </div>
+
+                    <div class="doc-footer">
+                        <div style="display: flex; justify-content: space-between; margin-top: 40px;">
+                            <div class="signature-line">Plant Protection Officer</div>
+                            <div class="signature-line">Official Stamp</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateFumigationCertificate(data) {
+            return `
+                <div class="document-preview">
+                    <div class="doc-title">FUMIGATION CERTIFICATE</div>
+                    <div style="text-align: center; font-style: italic; margin-bottom: 20px;">Pest Control Treatment Certificate</div>
+                    
+                    <div class="doc-row">
+                        <div><span class="doc-label">Certificate No:</span> FC-${data.shipment.invoiceNumber}</div>
+                        <div><span class="doc-label">Date:</span> ${data.shipment.invoiceDate || new Date().toISOString().split('T')[0]}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Exporter</div>
+                        <div><strong>${data.exporter.name}</strong></div>
+                        <div>${data.exporter.address}, ${data.exporter.city}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Consignee</div>
+                        <div><strong>${data.consignee.name}</strong></div>
+                        <div>${data.consignee.address}, ${data.consignee.city}</div>
+                    </div>
+
+                    <div class="doc-row">
+                        <div><span class="doc-label">Container No:</span> CONT-${data.shipment.invoiceNumber}</div>
+                        <div><span class="doc-label">No. of Packages:</span> ${data.shipment.numPackages || 'N/A'}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Description of Goods</div>
+                        ${data.items.map(item => `<div>• ${item.desc}</div>`).join('')}
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Fumigation Details</div>
+                        <div><span class="doc-label">Fumigant Used:</span> Methyl Bromide / Aluminum Phosphide</div>
+                        <div><span class="doc-label">Dosage:</span> As per ISPM 15 standards</div>
+                        <div><span class="doc-label">Treatment Duration:</span> 24 hours</div>
+                        <div><span class="doc-label">Temperature:</span> 25°C</div>
+                        <div><span class="doc-label">Treatment Date:</span> ${data.shipment.invoiceDate || new Date().toISOString().split('T')[0]}</div>
+                    </div>
+
+                    <div class="doc-footer">
+                        <div style="margin-top: 20px;"><strong>Certification:</strong> We hereby certify that the above-mentioned consignment and wooden packaging material have been fumigated according to ISPM-15 standards and are free from pests.</div>
+                        <div style="display: flex; justify-content: space-between; margin-top: 40px;">
+                            <div class="signature-line">Licensed Fumigation Agency</div>
+                            <div class="signature-line">License No. & Stamp</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateHealthCertificate(data) {
+            return `
+                <div class="document-preview">
+                    <div class="doc-title">HEALTH CERTIFICATE</div>
+                    <div style="text-align: center; font-style: italic; margin-bottom: 20px;">For Export of Food Products</div>
+                    
+                    <div class="doc-row">
+                        <div><span class="doc-label">Certificate No:</span> HC-${data.shipment.invoiceNumber}</div>
+                        <div><span class="doc-label">Date:</span> ${data.shipment.invoiceDate || new Date().toISOString().split('T')[0]}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Exporter / Manufacturer</div>
+                        <div><strong>${data.exporter.name}</strong></div>
+                        <div>${data.exporter.address}, ${data.exporter.city}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Importer / Consignee</div>
+                        <div><strong>${data.consignee.name}</strong></div>
+                        <div>${data.consignee.address}, ${data.consignee.city}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Description of Products</div>
+                        ${data.items.map(item => `<div>• ${item.qty} ${item.unit} of ${item.desc}</div>`).join('')}
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Health Declaration</div>
+                        <div>The undersigned hereby certifies that:</div>
+                        <div>✓ The products have been prepared under hygienic conditions</div>
+                        <div>✓ Raw materials used are of good quality and fit for human consumption</div>
+                        <div>✓ Products comply with food safety standards and regulations</div>
+                        <div>✓ No harmful substances or contaminants detected</div>
+                        <div>✓ Storage and transportation meet sanitary requirements</div>
+                    </div>
+
+                    <div class="doc-footer">
+                        <div style="margin-top: 20px;"><strong>Validity:</strong> This certificate is valid for 6 months from date of issue</div>
+                        <div style="display: flex; justify-content: space-between; margin-top: 40px;">
+                            <div class="signature-line">Health Authority Officer</div>
+                            <div class="signature-line">Official Seal</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateBillOfExchange(data) {
+            const total = data.items.reduce((sum, item) => sum + parseFloat(item.total || 0), 0);
+            
+            return `
+                <div class="document-preview">
+                    <div class="doc-title">BILL OF EXCHANGE / DRAFT</div>
+                    
+                    <div class="doc-row">
+                        <div><span class="doc-label">Draft No:</span> BE-${data.shipment.invoiceNumber}</div>
+                        <div><span class="doc-label">Date:</span> ${data.shipment.invoiceDate || new Date().toISOString().split('T')[0]}</div>
+                    </div>
+
+                    <div style="margin: 30px 0; padding: 20px; background: #f5f5f5;">
+                        <div style="font-size: 18px; margin-bottom: 15px;">
+                            <strong>Amount:</strong> ${data.shipment.currency} ${total.toFixed(2)}
+                        </div>
+                        <div style="font-size: 16px; margin-bottom: 20px;">
+                            <strong>In Words:</strong> ${numberToWords(total)} ${data.shipment.currency} Only
+                        </div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div>At <strong>${data.shipment.paymentTerms || 'sight'}</strong> of this FIRST Bill of Exchange (Second of the same tenor and date being unpaid)</div>
+                        <div style="margin-top: 15px;">Pay to the order of <strong>${data.exporter.name}</strong></div>
+                        <div style="margin-top: 15px;">The sum of <strong>${data.shipment.currency} ${total.toFixed(2)}</strong></div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">To (Drawee)</div>
+                        <div><strong>${data.consignee.name}</strong></div>
+                        <div>${data.consignee.address}, ${data.consignee.city}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">For</div>
+                        <div>Value received as per Invoice No. ${data.shipment.invoiceNumber}</div>
+                        <div>dated ${data.shipment.invoiceDate || new Date().toISOString().split('T')[0]}</div>
+                    </div>
+
+                    <div class="doc-footer">
+                        <div style="margin-top: 40px;">
+                            <div style="text-align: right;">
+                                <div><strong>${data.exporter.name}</strong></div>
+                                <div class="signature-line" style="display: inline-block;">Drawer's Signature</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateLetterOfCredit(data) {
+            const total = data.items.reduce((sum, item) => sum + parseFloat(item.total || 0), 0);
+            
+            return `
+                <div class="document-preview">
+                    <div class="doc-title">LETTER OF CREDIT (L/C)</div>
+                    <div style="text-align: center; font-style: italic; margin-bottom: 20px;">Irrevocable Documentary Credit</div>
+                    
+                    <div class="doc-row">
+                        <div><span class="doc-label">L/C No:</span> LC-${data.shipment.invoiceNumber}</div>
+                        <div><span class="doc-label">Date of Issue:</span> ${data.shipment.invoiceDate || new Date().toISOString().split('T')[0]}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Applicant (Buyer)</div>
+                        <div><strong>${data.consignee.name}</strong></div>
+                        <div>${data.consignee.address}, ${data.consignee.city}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Beneficiary (Seller)</div>
+                        <div><strong>${data.exporter.name}</strong></div>
+                        <div>${data.exporter.address}, ${data.exporter.city}</div>
+                    </div>
+
+                    <div class="doc-row">
+                        <div><span class="doc-label">Amount:</span> ${data.shipment.currency} ${total.toFixed(2)}</div>
+                        <div><span class="doc-label">Expiry Date:</span> 90 days from issue</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Description of Goods</div>
+                        ${data.items.map(item => `<div>• ${item.qty} ${item.unit} of ${item.desc}</div>`).join('')}
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Shipment Details</div>
+                        <div><span class="doc-label">From:</span> ${data.shipment.portLoading || 'N/A'}</div>
+                        <div><span class="doc-label">To:</span> ${data.shipment.portDischarge || 'N/A'}</div>
+                        <div><span class="doc-label">Incoterms:</span> ${data.shipment.incoterms || 'N/A'}</div>
+                        <div><span class="doc-label">Latest Shipment:</span> 60 days from L/C date</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Documents Required</div>
+                        <div>• Commercial Invoice (3 originals)</div>
+                        <div>• Packing List (2 copies)</div>
+                        <div>• Bill of Lading (full set)</div>
+                        <div>• Certificate of Origin</div>
+                        <div>• Insurance Certificate</div>
+                    </div>
+
+                    <div class="doc-footer">
+                        <div style="margin-top: 20px;"><strong>Special Conditions:</strong> This credit is subject to Uniform Customs and Practice for Documentary Credits (UCP 600).</div>
+                        <div class="signature-line">Issuing Bank Authorized Signature</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateExportLicense(data) {
+            return `
+                <div class="document-preview">
+                    <div class="doc-title">EXPORT LICENSE</div>
+                    
+                    <div class="doc-row">
+                        <div><span class="doc-label">License No:</span> EL-${data.shipment.invoiceNumber}</div>
+                        <div><span class="doc-label">Date of Issue:</span> ${data.shipment.invoiceDate || new Date().toISOString().split('T')[0]}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Exporter Details</div>
+                        <div><strong>${data.exporter.name}</strong></div>
+                        <div>${data.exporter.address}, ${data.exporter.city}</div>
+                        ${data.exporter.iec ? `<div>IEC Code: ${data.exporter.iec}</div>` : ''}
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Consignee Details</div>
+                        <div><strong>${data.consignee.name}</strong></div>
+                        <div>${data.consignee.address}, ${data.consignee.city}</div>
+                    </div>
+
+                    <div class="doc-row">
+                        <div><span class="doc-label">Country of Destination:</span> ${data.consignee.city || 'N/A'}</div>
+                        <div><span class="doc-label">Port of Export:</span> ${data.shipment.portLoading || 'N/A'}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Description of Goods</div>
+                        ${data.items.map(item => `<div>• ${item.qty} ${item.unit} of ${item.desc} (HS Code: ${item.hs})</div>`).join('')}
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">License Conditions</div>
+                        <div>✓ This license is valid for single shipment only</div>
+                        <div>✓ Shipment must be completed within 6 months</div>
+                        <div>✓ Goods must be exported as per approved specifications</div>
+                        <div>✓ Any amendments require prior approval</div>
+                    </div>
+
+                    <div class="doc-footer">
+                        <div><strong>Validity:</strong> 6 months from date of issue</div>
+                        <div style="margin-top: 20px;"><strong>Note:</strong> This license is issued subject to the provisions of the Foreign Trade Policy.</div>
+                        <div class="signature-line">Licensing Authority Signature & Seal</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateDangerousGoodsDeclaration(data) {
+            return `
+                <div class="document-preview">
+                    <div class="doc-title">DANGEROUS GOODS DECLARATION</div>
+                    <div style="text-align: center; font-style: italic; margin-bottom: 20px;">IMDG / IATA Dangerous Goods Transport Document</div>
+                    
+                    <div class="doc-row">
+                        <div><span class="doc-label">DGD No:</span> DGD-${data.shipment.invoiceNumber}</div>
+                        <div><span class="doc-label">Date:</span> ${data.shipment.invoiceDate || new Date().toISOString().split('T')[0]}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Shipper</div>
+                        <div><strong>${data.exporter.name}</strong></div>
+                        <div>${data.exporter.address}, ${data.exporter.city}</div>
+                        ${data.exporter.contact ? `<div>Emergency Contact: ${data.exporter.contact}</div>` : ''}
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Consignee</div>
+                        <div><strong>${data.consignee.name}</strong></div>
+                        <div>${data.consignee.address}, ${data.consignee.city}</div>
+                    </div>
+
+                    <div class="doc-row">
+                        <div><span class="doc-label">Vessel / Flight:</span> ${data.shipment.vesselName || 'N/A'}</div>
+                        <div><span class="doc-label">Port of Loading:</span> ${data.shipment.portLoading || 'N/A'}</div>
+                    </div>
+
+                    <table class="items-preview-table">
+                        <thead>
+                            <tr>
+                                <th>UN No.</th>
+                                <th>Proper Shipping Name</th>
+                                <th>Class</th>
+                                <th>Packing Group</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${data.items.map(item => `
+                                <tr>
+                                    <td>UN####</td>
+                                    <td>${item.desc}</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>${item.qty} ${item.unit}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Additional Handling Information</div>
+                        <div>• Package type: ${data.shipment.packageType || 'Standard packaging'}</div>
+                        <div>• Emergency response: Contact shipper immediately</div>
+                        <div>• Special precautions: Handle with care</div>
+                    </div>
+
+                    <div class="doc-footer">
+                        <div style="margin-top: 20px;"><strong>Shipper's Declaration:</strong> I hereby declare that the contents of this consignment are fully and accurately described above and are classified, packaged, marked and labeled, and are in proper condition for transport according to applicable regulations.</div>
+                        <div class="signature-line">Shipper's Signature & Date</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateCertificateOfFreeSale(data) {
+            return `
+                <div class="document-preview">
+                    <div class="doc-title">CERTIFICATE OF FREE SALE</div>
+                    
+                    <div class="doc-row">
+                        <div><span class="doc-label">Certificate No:</span> CFS-${data.shipment.invoiceNumber}</div>
+                        <div><span class="doc-label">Date:</span> ${data.shipment.invoiceDate || new Date().toISOString().split('T')[0]}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Manufacturer / Exporter</div>
+                        <div><strong>${data.exporter.name}</strong></div>
+                        <div>${data.exporter.address}, ${data.exporter.city}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Importer / Buyer</div>
+                        <div><strong>${data.consignee.name}</strong></div>
+                        <div>${data.consignee.address}, ${data.consignee.city}</div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Product Details</div>
+                        ${data.items.map(item => `<div>• ${item.desc}</div>`).join('')}
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Certification</div>
+                        <div style="line-height: 1.8;">
+                            This is to certify that the products listed above are manufactured by <strong>${data.exporter.name}</strong> 
+                            and are freely sold and distributed in ${data.shipment.countryOrigin || 'the country of origin'} 
+                            without any restrictions. The products comply with all applicable regulations and standards for 
+                            sale and distribution in the country of manufacture.
+                        </div>
+                    </div>
+
+                    <div class="doc-section">
+                        <div class="doc-section-title">Regulatory Compliance</div>
+                        <div>✓ Products meet national quality standards</div>
+                        <div>✓ Manufacturing facility is licensed and registered</div>
+                        <div>✓ Products are in compliance with health and safety regulations</div>
+                        <div>✓ No restrictions on sale or distribution in country of origin</div>
+                    </div>
+
+                    <div class="doc-footer">
+                        <div style="margin-top: 20px;"><strong>Validity:</strong> 12 months from date of issue</div>
+                        <div style="display: flex; justify-content: space-between; margin-top: 40px;">
+                            <div class="signature-line">Regulatory Authority Signature</div>
+                            <div class="signature-line">Official Seal</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        let signatureDataURL = null;
+        let signaturePad = null;
+
+        function initSignaturePad() {
+            const canvas = document.getElementById('signatureCanvas');
+            const ctx = canvas.getContext('2d');
+            let isDrawing = false;
+            let lastX = 0;
+            let lastY = 0;
+
+            canvas.addEventListener('mousedown', (e) => {
+                isDrawing = true;
+                [lastX, lastY] = [e.offsetX, e.offsetY];
+            });
+
+            canvas.addEventListener('mousemove', (e) => {
+                if (!isDrawing) return;
+                ctx.strokeStyle = '#000';
+                ctx.lineWidth = 2;
+                ctx.lineCap = 'round';
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(e.offsetX, e.offsetY);
+                ctx.stroke();
+                [lastX, lastY] = [e.offsetX, e.offsetY];
+            });
+
+            canvas.addEventListener('mouseup', () => isDrawing = false);
+            canvas.addEventListener('mouseout', () => isDrawing = false);
+
+            canvas.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const rect = canvas.getBoundingClientRect();
+                isDrawing = true;
+                [lastX, lastY] = [touch.clientX - rect.left, touch.clientY - rect.top];
+            });
+
+            canvas.addEventListener('touchmove', (e) => {
+                e.preventDefault();
+                if (!isDrawing) return;
+                const touch = e.touches[0];
+                const rect = canvas.getBoundingClientRect();
+                const x = touch.clientX - rect.left;
+                const y = touch.clientY - rect.top;
+                ctx.strokeStyle = '#000';
+                ctx.lineWidth = 2;
+                ctx.lineCap = 'round';
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                [lastX, lastY] = [x, y];
+            });
+
+            canvas.addEventListener('touchend', () => isDrawing = false);
+        }
+
+        function toggleSignaturePad() {
+            const container = document.getElementById('signaturePadContainer');
+            container.classList.toggle('active');
+            if (container.classList.contains('active') && !signaturePad) {
+                initSignaturePad();
+                signaturePad = true;
+            }
+        }
+
+        function clearSignature() {
+            const canvas = document.getElementById('signatureCanvas');
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            signatureDataURL = null;
+        }
+
+        function applySignature() {
+            const canvas = document.getElementById('signatureCanvas');
+            signatureDataURL = canvas.toDataURL();
+            
+            const signatureLines = document.querySelectorAll('.signature-line');
+            signatureLines.forEach(line => {
+                line.innerHTML = `<img src="${signatureDataURL}" class="applied-signature" alt="Digital Signature">`;
+            });
+
+            document.getElementById('signaturePadContainer').classList.remove('active');
+            alert('Digital signature applied to all documents!');
+        }
+
+        function toggleResizeControls() {
+            const controls = document.getElementById('resizeControls');
+            controls.style.display = controls.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function adjustFontSize(value) {
+            document.getElementById('fontSizeValue').textContent = value + '%';
+            const docs = document.querySelectorAll('.document-preview');
+            docs.forEach(doc => {
+                doc.style.fontSize = (14 * value / 100) + 'px';
+            });
+        }
+
+        function adjustPadding(value) {
+            document.getElementById('paddingValue').textContent = value + 'px';
+            const docs = document.querySelectorAll('.document-preview');
+            docs.forEach(doc => {
+                doc.style.padding = value + 'px';
+            });
+        }
+
+        function adjustSpacing(value) {
+            document.getElementById('spacingValue').textContent = value + 'px';
+            const sections = document.querySelectorAll('.doc-section');
+            sections.forEach(section => {
+                section.style.margin = value + 'px 0';
+            });
+        }
+
+        function adjustTableSize(value) {
+            document.getElementById('tableSizeValue').textContent = value + '%';
+            const tables = document.querySelectorAll('.items-preview-table');
+            tables.forEach(table => {
+                table.style.fontSize = (12 * value / 100) + 'px';
+            });
+        }
+
+        function exportToPDF() {
+            window.print();
+            setTimeout(() => {
+                alert('Use your browser\'s Print dialog to save as PDF. In the print dialog, select "Save as PDF" as the destination.');
+            }, 100);
+        }
+
+        function exportToWord() {
+            const container = document.getElementById('documentsContainer');
+            const header = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export Documents</title></head><body>`;
+            const footer = '</body></html>';
+            const sourceHTML = header + container.innerHTML + footer;
+            
+            const blob = new Blob(['\ufeff', sourceHTML], {
+                type: 'application/msword'
+            });
+            
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'export-documents.doc';
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function exportToExcel() {
+            const data = collectFormData();
+            let csvContent = 'Export Document Data\n\n';
+            
+            csvContent += 'EXPORTER INFORMATION\n';
+            csvContent += `Company Name,${data.exporter.name}\n`;
+            csvContent += `Address,${data.exporter.address}\n`;
+            csvContent += `City,${data.exporter.city}\n`;
+            csvContent += `Contact,${data.exporter.contact}\n`;
+            csvContent += `Email,${data.exporter.email}\n`;
+            csvContent += `IEC,${data.exporter.iec}\n`;
+            csvContent += `GST,${data.exporter.gst}\n\n`;
+            
+            csvContent += 'CONSIGNEE INFORMATION\n';
+            csvContent += `Company Name,${data.consignee.name}\n`;
+            csvContent += `Address,${data.consignee.address}\n`;
+            csvContent += `City,${data.consignee.city}\n`;
+            csvContent += `Contact,${data.consignee.contact}\n`;
+            csvContent += `Email,${data.consignee.email}\n\n`;
+            
+            csvContent += 'SHIPMENT DETAILS\n';
+            csvContent += `Invoice Number,${data.shipment.invoiceNumber}\n`;
+            csvContent += `Invoice Date,${data.shipment.invoiceDate}\n`;
+            csvContent += `PO Number,${data.shipment.poNumber}\n`;
+            csvContent += `Port of Loading,${data.shipment.portLoading}\n`;
+            csvContent += `Port of Discharge,${data.shipment.portDischarge}\n`;
+            csvContent += `Incoterms,${data.shipment.incoterms}\n`;
+            csvContent += `Payment Terms,${data.shipment.paymentTerms}\n\n`;
+            
+            csvContent += 'ITEMS\n';
+            csvContent += 'Description,HS Code,Quantity,Unit,Unit Price,Total Amount\n';
+            data.items.forEach(item => {
+                csvContent += `${item.desc},${item.hs},${item.qty},${item.unit},${item.price},${item.total}\n`;
+            });
+            
+            const blob = new Blob([csvContent], { type: 'application/vnd.ms-excel' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'export-data.xls';
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function exportToCSV() {
+            const data = collectFormData();
+            let csvContent = 'Category,Field,Value\n';
+            
+            csvContent += `Exporter,Company Name,${data.exporter.name}\n`;
+            csvContent += `Exporter,Address,${data.exporter.address}\n`;
+            csvContent += `Exporter,City,${data.exporter.city}\n`;
+            csvContent += `Consignee,Company Name,${data.consignee.name}\n`;
+            csvContent += `Consignee,Address,${data.consignee.address}\n`;
+            csvContent += `Consignee,City,${data.consignee.city}\n`;
+            csvContent += `Shipment,Invoice Number,${data.shipment.invoiceNumber}\n`;
+            csvContent += `Shipment,Invoice Date,${data.shipment.invoiceDate}\n`;
+            
+            csvContent += '\n\nItem #,Description,HS Code,Quantity,Unit,Unit Price,Total\n';
+            data.items.forEach((item, index) => {
+                csvContent += `${index + 1},${item.desc},${item.hs},${item.qty},${item.unit},${item.price},${item.total}\n`;
+            });
+            
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'export-data.csv';
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function exportToHTML() {
+            const container = document.getElementById('documentsContainer');
+            const htmlContent = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Export Documents</title>
+    <style>
+        body { font-family: 'Courier New', monospace; margin: 20px; }
+        .document-preview { background: white; padding: 40px; margin: 20px 0; }
+        .doc-title { font-size: 24px; font-weight: bold; text-align: center; margin-bottom: 20px; }
+        .doc-section { margin: 20px 0; padding: 15px; background: #f5f5f5; }
+        .doc-section-title { font-weight: bold; font-size: 16px; margin-bottom: 10px; }
+        .items-preview-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .items-preview-table th, .items-preview-table td { border: 1px solid #000; padding: 8px; }
+        .items-preview-table th { background: #e0e0e0; font-weight: bold; }
+        .signature-line { margin-top: 40px; border-top: 1px solid #000; width: 200px; text-align: center; padding-top: 8px; }
+        @media print { body { margin: 0; } }
+    </style>
+</head>
+<body>
+${container.innerHTML}
+</body>
+</html>`;
+            
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'export-documents.html';
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function emailDocuments() {
+            const data = collectFormData();
+            const subject = `Export Documents - Invoice ${data.shipment.invoiceNumber}`;
+            const body = `Dear Partner,%0D%0A%0D%0APlease find the export documents for Invoice ${data.shipment.invoiceNumber}.%0D%0A%0D%0AExporter: ${data.exporter.name}%0D%0AConsignee: ${data.consignee.name}%0D%0A%0D%0ABest regards`;
+            
+            window.location.href = `mailto:?subject=${subject}&body=${body}`;
+        }
+
+        function downloadAllPDF() {
+            exportToPDF();
+        }
+
+        document.getElementById('invoiceDate').valueAsDate = new Date();
+    </script>
+</body>
+</html>
+
